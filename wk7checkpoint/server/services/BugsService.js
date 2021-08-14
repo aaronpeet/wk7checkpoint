@@ -19,6 +19,11 @@ class BugsService {
     return bug
   }
 
+  async getAllBugNotes(id) {
+    const notes = await dbContext.Notes.find(id).populate('bug', 'title')
+    return notes
+  }
+
   async edit(body) {
     const bug = await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: true, runValidators: true })
     if (!bug) {
