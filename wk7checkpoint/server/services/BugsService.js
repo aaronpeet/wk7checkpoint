@@ -1,4 +1,5 @@
 import { dbContext } from '../db/DbContext'
+import { BadRequest } from '../utils/Errors'
 class BugsService {
   async create(body) {
     const bug = await dbContext.Bugs.create(body)
@@ -6,8 +7,32 @@ class BugsService {
   }
 
   async getAll(query = {}) {
-    const bugs = await dbContext.Bugs.findById(query).populate('creator', 'name picture')
+    const bugs = await dbContext.Bugs.find(query).populate('creator', 'name picture')
     return bugs
+  }
+
+  async getOne(id) {
+    const bug = await dbContext.Bugs.findById(id).populate('creator', 'name picture')
+    if (!bug) {
+      throw new BadRequest('Invalid Id')
+    }
+    return bug
+  }
+
+  async edit(body) {
+    const bug = await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: true, runValidators: true })
+    if (!bug) {
+      throw new BadRequest('Invalid Id')
+    }
+    return bug
+  }
+
+  async destroy(id) {
+    const bug = await dbContext.Bugs.findByIdAndDelete(id)
+    if (!bug) {
+      throw new BadRequest('Invalid Id')
+    }
+    return bug
   }
 }
 
