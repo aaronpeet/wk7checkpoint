@@ -1,9 +1,11 @@
 <template>
   <div class="home container-fluid">
     <div class="row">
-      <div class="col">
+      <div class="col-3"></div>
+      <div class="col-6">
         <BugForm />
       </div>
+      <div class="col-3"></div>
     </div>
     <div class="row">
       <div class="col-6" v-for="b in bugs" :key="b.id">
@@ -22,13 +24,13 @@ import { bugsService } from '../services/BugsService'
 export default {
   name: 'Home',
   setup() {
-    onMounted(async() => {
-      try {
-        await bugsService.getAllBugs()
-      } catch (error) {
-        Pop.toast(error)
-      }
-    })
+    // onMounted(async() => {
+    //   try {
+    //     await bugsService.getAllBugs()
+    //   } catch (error) {
+    //     Pop.toast(error)
+    //   }
+    // })
     return {
       bugs: computed(() => AppState.bugs)
     }
