@@ -11,7 +11,7 @@ export class NotesController extends BaseController {
 
   async create(req, res, next) {
     try {
-      req.body.id = req.userInfo.id
+      req.body.creatorId = req.userInfo.id
       const note = await notesService.create(req.body)
       res.send(note)
     } catch (error) {

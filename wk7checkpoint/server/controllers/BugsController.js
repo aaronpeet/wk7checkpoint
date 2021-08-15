@@ -36,7 +36,7 @@ export class BugsController extends BaseController {
 
   async getAllBugNotes(req, res, next) {
     try {
-      const notes = await bugsService.getAllBugNotes({ bugId: req.params.id })
+      const notes = await bugsService.getAllBugNotes(req.params.id)
       res.send(notes)
     } catch (error) {
       next(error)
@@ -66,8 +66,8 @@ export class BugsController extends BaseController {
 
   async destroy(req, res, next) {
     try {
-      await bugsService.destroy(req.params.id)
-      res.send({ message: 'Successfully Deleted Bug' })
+      const bug = await bugsService.destroy(req.params.id)
+      res.send(bug)
     } catch (error) {
       next(error)
     }

@@ -20,7 +20,7 @@ class BugsService {
   }
 
   async getAllBugNotes(id) {
-    const notes = await dbContext.Notes.find(id).populate('bug', 'title')
+    const notes = await dbContext.Notes.find({ bugId: id })
     return notes
   }
 
@@ -29,15 +29,21 @@ class BugsService {
     if (!bug) {
       throw new BadRequest('Invalid Id')
     }
+    if (bug.closed) {
+      throw new BadRequest('Cannot Edit if Closed')
+    }
     return bug
   }
 
   async destroy(id) {
-    const bug = await dbContext.Bugs.findByIdAndDelete(id)
+    const bug = await dbContext.Bugs.findById(id)
+
     if (!bug) {
       throw new BadRequest('Invalid Id')
     }
-    return bug
+    bug.closed = true
+    const updatedBug = await dbContext.Bugs.findByIdAndUpdate(id, bug, { new: true, runValidators: true })
+    return updatedBug
   }
 }
 
