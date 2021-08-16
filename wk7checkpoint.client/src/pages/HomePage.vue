@@ -24,13 +24,13 @@ import { bugsService } from '../services/BugsService'
 export default {
   name: 'Home',
   setup() {
-    // onMounted(async() => {
-    //   try {
-    //     await bugsService.getAllBugs()
-    //   } catch (error) {
-    //     Pop.toast(error)
-    //   }
-    // })
+    onMounted(async() => {
+      try {
+        await bugsService.getAllBugs()
+      } catch (error) {
+        Pop.toast(error)
+      }
+    })
     return {
       bugs: computed(() => AppState.bugs)
     }

@@ -10,7 +10,7 @@ const bug1 = {
 export const AppState = reactive({
   user: {},
   account: {},
-  bugs: [bug1, bug1, bug1, bug1, bug1, bug1, bug1, bug1],
+  bugs: [],
   activeBug: {},
   notes: []
 })
