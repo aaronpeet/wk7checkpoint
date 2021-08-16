@@ -6,7 +6,7 @@
         <textarea
           type="text"
           name="description"
-          v-model="state.newNote.description"
+          v-model="state.newNote.body"
           class="form-control"
           placeholder="Description"
           required
@@ -26,11 +26,17 @@
 import { reactive } from '@vue/reactivity'
 import { notesService } from '../services/NotesService'
 import Pop from '../utils/Notifier'
+import { useRoute } from 'vue-router'
 export default {
   setup() {
+    const route = useRoute()
     const state = reactive({
-      newNote: {}
+      newNote: {
+        body: '',
+        bugId: route.params.id
+      }
     })
+
     return {
       state,
       async createNote() {

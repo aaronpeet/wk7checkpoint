@@ -6,7 +6,7 @@
         <p><em>{{ bug.description }}</em></p>
       </div>
       <div class="text-right">
-        <!-- <p>Updated on: {{ lastUpdated }}</p> -->
+        <p>Updated on: {{ lastUpdated }}</p>
         <p><em> {{ bug.creator?.name }} </em> |<img class="rounded-pill ml-2" :src="bug.creator?.picture" alt=""></p>
       </div>
     </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-// import { computed } from '@vue/runtime-core'
+import { computed } from '@vue/runtime-core'
 
 export default {
   props: {
@@ -23,12 +23,12 @@ export default {
       required: true
     }
   },
-  setup() {
+  setup(props) {
     return {
-    //   lastUpdated: computed(() => {
-    //     const d = new Date(props.bug.updatedAt)
-    //     return new Intl.DateTimeFormat('en-US').format(d)
-    //   })
+      lastUpdated: computed(() => {
+        const d = new Date(props.bug.updatedAt)
+        return new Intl.DateTimeFormat('en-US').format(d)
+      })
     }
   }
 }
@@ -43,7 +43,5 @@ export default {
 .border-left{
   border-width: 10px !important;
 }
-.bug:hover{
-  transform: scale(1.025);
-}
+
 </style>

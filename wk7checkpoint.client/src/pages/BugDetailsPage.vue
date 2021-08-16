@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-2"></div>
       <div class="col-8">
-        <BugDetailsCard :bug="bug" />
+        <BugDetailsCard v-if="bug.id" :bug="bug" />
       </div>
       <div class="col-2"></div>
     </div>
@@ -20,7 +20,7 @@
     <div class="row">
       <div class="col-3"></div>
       <div class="col-6" v-for="n in notes" :key="n.id">
-        <NotesCard :note="n" />
+        <NotesCard :notes="n" />
       </div>
       <div class="col-3"></div>
     </div>

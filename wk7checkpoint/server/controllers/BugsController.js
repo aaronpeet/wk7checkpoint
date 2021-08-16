@@ -7,10 +7,10 @@ export class BugsController extends BaseController {
     super('api/bugs')
     this.router
       .get('', this.getAll)
-      // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
-      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('/:id', this.getOne)
       .get('/:id/notes', this.getAllBugNotes)
+      // NOTE: Beyond this point all routes require Authorization tokens (the user must be logged in)
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.edit)
       .delete('/:id', this.destroy)

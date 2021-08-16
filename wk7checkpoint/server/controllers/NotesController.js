@@ -7,6 +7,7 @@ export class NotesController extends BaseController {
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
+      .delete('/:id', this.destroy)
   }
 
   async create(req, res, next) {
@@ -14,6 +15,15 @@ export class NotesController extends BaseController {
       req.body.creatorId = req.userInfo.id
       const note = await notesService.create(req.body)
       res.send(note)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async destroy(req, res, next) {
+    try {
+      await notesService.destroy(req.params.id)
+      res.send({ message: 'Successfully Deleted Note' })
     } catch (error) {
       next(error)
     }
