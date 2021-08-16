@@ -42,7 +42,10 @@ export default {
       async createNote() {
         try {
           await notesService.createNote(state.newNote)
-          state.newNote = {}
+          state.newNote = {
+            body: '',
+            bugId: route.params.id
+          }
         } catch (error) {
           Pop.toast(error)
         }

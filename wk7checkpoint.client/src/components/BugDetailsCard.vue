@@ -1,5 +1,17 @@
 <template>
-  <div class="bug m-2 bg-light shadow border-left border-success">
+  <div v-if="bug.closed" class="bug m-2 bg-light shadow border-left border-danger">
+    <div class="p-3">
+      <div class="text-left">
+        <p><b>{{ bug.title }}</b></p>
+        <p><em>{{ bug.description }}</em></p>
+      </div>
+      <div class="text-right">
+        <p>Updated on: {{ lastUpdated }}</p>
+        <p><em> {{ bug.creator?.name }} </em> |<img class="rounded-pill ml-2" :src="bug.creator?.picture" alt=""></p>
+      </div>
+    </div>
+  </div>
+  <div v-else class="bug m-2 bg-light shadow border-left border-success">
     <div class="p-3">
       <div class="text-left">
         <p><b>{{ bug.title }}</b></p>

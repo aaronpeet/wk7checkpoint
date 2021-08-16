@@ -2,13 +2,13 @@
   <div class="home container-fluid">
     <div class="row">
       <div class="col-3"></div>
-      <div class="col-6">
+      <div class="col-md-6">
         <BugForm />
       </div>
       <div class="col-3"></div>
     </div>
     <div class="row">
-      <div class="col-6" v-for="b in bugs" :key="b.id">
+      <div class="col-md-6" v-for="b in bugs" :key="b.id">
         <BugCard :bugs="b" />
       </div>
     </div>

@@ -14,11 +14,6 @@ class BugsService {
     logger.log('from activebug Appstate', AppState.activeBug)
   }
 
-  async getAllActiveNotes(id) {
-    const res = await api.get('/api/bugs/' + id + '/notes')
-    AppState.activeNotes = res.data
-  }
-
   async createBug(newBug) {
     const res = await api.post('/api/bugs', newBug)
     AppState.bugs.push(res.data)

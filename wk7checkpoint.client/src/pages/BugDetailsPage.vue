@@ -2,14 +2,14 @@
   <div class="details container-fluid">
     <div class="row">
       <div class="col-2"></div>
-      <div class="col-8">
+      <div class="col-md-8">
         <BugDetailsCard v-if="bug.id" :bug="bug" />
       </div>
       <div class="col-2"></div>
     </div>
     <div class="row">
       <div class="col-3"></div>
-      <div class="col-6">
+      <div class="col-md-6">
         <h4 class="text-center">
           Add a Note:
         </h4>
@@ -19,8 +19,8 @@
     </div>
     <div class="row">
       <div class="col-3"></div>
-      <div class="col-6" v-for="n in notes" :key="n.id">
-        <NotesCard :notes="n" />
+      <div class="col-md-6">
+        <NoteCard v-for="n in notes" :key="n.id" :notes="n" />
       </div>
       <div class="col-3"></div>
     </div>
@@ -33,6 +33,7 @@ import Pop from '../utils/Notifier'
 import { AppState } from '../AppState'
 import { bugsService } from '../services/BugsService'
 import { useRoute } from 'vue-router'
+import { notesService } from '../services/NotesService'
 
 export default {
   name: 'BugDetails',
@@ -41,7 +42,7 @@ export default {
     onMounted(async() => {
       try {
         await bugsService.getActiveBug(route.params.id)
-        await bugsService.getAllActiveNotes(route.params.id)
+        await notesService.getAllActiveNotes(route.params.id)
       } catch (error) {
         Pop.toast(error)
       }
