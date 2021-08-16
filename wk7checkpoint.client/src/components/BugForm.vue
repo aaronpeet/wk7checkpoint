@@ -1,5 +1,5 @@
 <template>
-  <div class="bug-form card p-2 m-2">
+  <div class="bug-form card shadow p-2 m-2">
     <form class="d-flex" @submit.prevent="createBug">
       <div class="form-group mr-5">
         <label for="title">Title</label>

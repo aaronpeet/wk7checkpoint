@@ -6,7 +6,17 @@ class BugsService {
   async getAllBugs() {
     const res = await api.get('/api/bugs')
     AppState.bugs = res.data
-    logger.log(AppState.bugs)
+  }
+
+  async getActiveBug(id) {
+    const res = await api.get('/api/bugs' + id)
+    AppState.activeBug = res.data
+    logger.log('from activebug Appstate', AppState.activeBug)
+  }
+
+  async getAllActiveNotes(id) {
+    const res = await api.get('/api/bugs' + id + '/notes')
+    AppState.activeNotes = res.data
   }
 
   async createBug(newBug) {

@@ -9,7 +9,7 @@
     </div>
     <div class="row">
       <div class="col-6" v-for="b in bugs" :key="b.id">
-        <BugCard :bug="b" />
+        <BugCard :bugs="b" />
       </div>
     </div>
   </div>
@@ -42,9 +42,5 @@ export default {
 .home{
   text-align: center;
   user-select: none;
-  > img{
-    height: 200px;
-    width: 200px;
-  }
 }
 </style>
