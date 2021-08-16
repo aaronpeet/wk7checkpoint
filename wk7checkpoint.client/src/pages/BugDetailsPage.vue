@@ -7,9 +7,12 @@
       </div>
       <div class="col-2"></div>
     </div>
-    <!-- <div class="row">
+    <div class="row">
       <div class="col-3"></div>
       <div class="col-6">
+        <h4 class="text-center">
+          Add a Note:
+        </h4>
         <NotesForm />
       </div>
       <div class="col-3"></div>
@@ -20,7 +23,7 @@
         <NotesCard :note="n" />
       </div>
       <div class="col-3"></div>
-    </div> -->
+    </div>
   </div>
 </template>
 

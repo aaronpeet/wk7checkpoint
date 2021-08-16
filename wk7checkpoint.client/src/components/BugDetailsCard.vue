@@ -7,7 +7,7 @@
       </div>
       <div class="text-right">
         <!-- <p>Updated on: {{ lastUpdated }}</p> -->
-        <p><em> {{ bug.creator.name }} </em> |<img class="rounded-pill ml-2" :src="bug.creator.picture" alt=""></p>
+        <p><em> {{ bug.creator?.name }} </em> |<img class="rounded-pill ml-2" :src="bug.creator?.picture" alt=""></p>
       </div>
     </div>
   </div>
