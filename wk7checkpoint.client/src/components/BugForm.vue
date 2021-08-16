@@ -49,7 +49,7 @@ export default {
       async createBug() {
         try {
           const newId = await bugsService.createBug(state.newBug)
-          state.newCar = {}
+          state.newBug = {}
           router.push({ name: 'BugDetails', params: { id: newId } })
         } catch (error) {
           Pop.toast(error)
