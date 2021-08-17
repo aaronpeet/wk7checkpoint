@@ -4,7 +4,7 @@
       <div class="text-left">
         <p><em>{{ notes.body }}</em></p>
       </div>
-      <button class="btn btn-danger mt-5" @click="deleteNote">
+      <button v-if="account.id === notes.creatorId && user.isAuthenticated" class="btn btn-danger mt-5" @click="deleteNote">
         Delete
       </button>
       <div class="text-right">
@@ -15,8 +15,10 @@
 </template>
 
 <script>
+import { computed } from '@vue/runtime-core'
 import { notesService } from '../services/NotesService'
 import Pop from '../utils/Notifier'
+import { AppState } from '../AppState'
 
 export default {
 
@@ -29,9 +31,13 @@ export default {
 
   setup(props) {
     return {
+      account: computed(() => AppState.account),
+      user: computed(() => AppState.user),
       async deleteNote() {
         try {
-          await notesService.deleteNote(props.notes.id)
+          if (await Pop.confirm()) {
+            await notesService.deleteNote(props.notes.id)
+          }
         } catch (error) {
           Pop.toast(error)
         }

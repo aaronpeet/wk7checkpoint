@@ -16,7 +16,6 @@ class NotesService {
   async deleteNote(id) {
     await api.delete('/api/notes/' + id)
     AppState.activeNotes = AppState.activeNotes.filter(n => n.id !== id)
-    await this.getAllActiveNotes()
   }
 }
 

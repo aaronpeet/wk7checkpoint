@@ -7,9 +7,9 @@
       </div>
       <div class="col-2"></div>
     </div>
-    <div class="row">
+    <div v-if="!bug.closed" class="row">
       <div class="col-3"></div>
-      <div class="col-md-6">
+      <div v-if="user.isAuthenticated" class="col-md-6">
         <h4 class="text-center">
           Add a Note:
         </h4>
@@ -49,7 +49,8 @@ export default {
     })
     return {
       bug: computed(() => AppState.activeBug),
-      notes: computed(() => AppState.activeNotes)
+      notes: computed(() => AppState.activeNotes),
+      user: computed(() => AppState.user)
     }
   }
 }
