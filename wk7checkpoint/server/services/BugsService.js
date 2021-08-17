@@ -1,5 +1,5 @@
 import { dbContext } from '../db/DbContext'
-import { BadRequest } from '../utils/Errors'
+import { BadRequest, Forbidden } from '../utils/Errors'
 class BugsService {
   async create(body) {
     const bug = await dbContext.Bugs.create(body)
@@ -25,24 +25,30 @@ class BugsService {
   }
 
   async edit(body) {
-    const bug = await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: true, runValidators: true })
+    const bug = await dbContext.Bugs.findById(body.id)
     if (!bug) {
       throw new BadRequest('Invalid Id')
     }
-    if (bug.closed) {
-      throw new BadRequest('Cannot Edit if Closed')
+    if (bug.closed === true) {
+      throw new Forbidden('Cannot Edit if Closed')
     }
-    return bug
+    if (bug.creatorId.toString() !== body.creatorId) {
+      throw new Forbidden('This is not your bug')
+    }
+    const newBug = await dbContext.Bugs.findByIdAndUpdate(body.id, body, { new: true })
+    return newBug
   }
 
-  async destroy(id) {
-    const bug = await dbContext.Bugs.findById(id)
-
+  async destroy(body) {
+    const bug = await dbContext.Bugs.findById(body.id)
     if (!bug) {
       throw new BadRequest('Invalid Id')
     }
+    if (bug.creatorId.toString() !== body.creatorId) {
+      throw new Forbidden('This is not your bug')
+    }
     bug.closed = true
-    const updatedBug = await dbContext.Bugs.findByIdAndUpdate(id, bug, { new: true, runValidators: true })
+    const updatedBug = await dbContext.Bugs.findByIdAndUpdate(body.id, bug, { new: true })
     return updatedBug
   }
 }
